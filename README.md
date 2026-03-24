@@ -2,65 +2,66 @@
 
 Portable Claude Code skills toolkit. Install once, use in every repo.
 
-## Quick Start
+## Install
 
+**Option A: Symlink**
 ```bash
-git clone <repo-url>
+git clone git@github.com:hongarc/skong.git
 cd skong
 ./install.sh
 ```
 
-Then in any project:
+**Option B: Claude Plugin**
 ```
-/setup
+/plugin marketplace add hongarc/skong
+/plugin install skong@hongarc-skong
 ```
 
-## What's Included
+## Skills
 
-**8 skills** (7 OFF by default + setup always ON, zero token cost):
+**10 skills** (all ON, auto-activate based on context):
 
 | Skill | What it does |
 |-------|-------------|
-| `setup` | Set up skills for any repo (always ON) |
+| `setup` | Set up skills for any repo |
+| `auto` | Full workflow: research → propose → implement → review → commit |
 | `pr` | PR: auto review+fix+push+resolve, manual review, fix comments |
-| `git` | Git: clean branches, create releases/tags |
+| `git` | Clean branches, create releases/tags |
 | `proposal` | Technical proposals for lead approval |
 | `implement` | Implement tasks following codebase patterns |
 | `research` | Research with structured reports |
 | `deploy` | Local dev, Vercel, AWS handoff |
+| `handover` | Feature handover docs: hidden logic, debug runbook, DB queries |
 | `skill-writer` | Create/edit Claude skills |
 
-**Auto workflows**: `/auto`, `/auto:fast`, `/auto:research-only`
+## Commands
 
-**Self-improving**: `/learn` reflects on work and proposes skill updates
+| Command | What it does |
+|---------|-------------|
+| `/auto [task]` | Full: research → proposal → implement → review → commit |
+| `/auto:fast [task]` | Skip proposal, quick implement + review |
+| `/auto:research-only` | Research + proposal only |
+| `/pr 123` | Full auto PR: worktree → review → fix → push → resolve |
+| `/pr 123 review` | Review PR, present findings |
+| `/pr 123 fix` | Fix review comments, push, reply, resolve |
+| `/git clean` | Sync branches, delete old local releases, reduce .git |
+| `/git release` | Create tag + GitHub release from package.json |
+| `/handover [feature]` | Generate handover doc with debug runbook |
 
-## Install / Uninstall
+## Manage
 
 ```bash
-./install.sh             # Install (symlink to ~/.claude/)
-./install.sh --status    # Check what's linked
-./install.sh --unlink    # Remove all symlinks
+./install.sh             # Install
+./install.sh --status    # Check links
+./install.sh --unlink    # Remove links
 ```
 
-## How It Works
-
-1. `install.sh` symlinks `skong/.claude/` → `~/.claude/` (skills, commands, workflows, settings)
-2. All skills OFF by default — only `/setup` is active
-3. `/setup` in any repo → pick skills → copies + enables them for that repo
-4. Copies go into the target repo's `.claude/` (committable to git, team can use)
-5. After every workflow → `/learn` suggests skill improvements
-
-## Adding a New Skill
+## Adding Skills
 
 ```
-.claude/skills/my-skill/
-├── SKILL.md           ← under 100 lines, include: disable-model-invocation: true
+skills/my-skill/
+├── SKILL.md           ← under 100 lines
 └── references/        ← detailed docs, each under 100 lines
 ```
 
-Appears in `/setup` menu automatically.
-
-## Editing Skills
-
-Edit in `skong/.claude/skills/`. Changes apply everywhere instantly (symlinked).
-Per-repo copies are independent — won't be affected.
+Edit `skills/` directly — changes apply everywhere.

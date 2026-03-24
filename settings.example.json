@@ -1,0 +1,34 @@
+{
+  "effortLevel": "high",
+  "includeCoAuthoredBy": false,
+  "permissions": {
+    "allow": [
+      "Bash(git status *)",
+      "Bash(git diff *)",
+      "Bash(git log *)",
+      "Bash(git branch *)",
+      "Bash(git show *)",
+      "Bash(git blame *)",
+      "Bash(git fetch *)",
+      "Bash(ls *)",
+      "Bash(pwd)",
+      "Bash(which *)",
+      "Bash(wc *)",
+      "Bash(find *)",
+      "Bash(grep *)",
+      "Bash(rg *)",
+      "Bash(tree *)",
+      "Bash(du *)",
+      "Bash(diff *)",
+      "Bash(date *)",
+      "Read(~/.claude/**)",
+      "Glob(~/.claude/**)"
+    ],
+    "deny": [
+      "Bash(env *)",
+      "Bash(printenv *)",
+      "Read(/**/.env)",
+      "Read(/**/.env.*)"
+    ]
+  }
+}

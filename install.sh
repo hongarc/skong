@@ -3,26 +3,25 @@
 # Usage:
 #   ./install.sh           Install (symlink to ~/.claude/)
 #   ./install.sh --status  Check current symlink status
-#   ./install.sh --unlink  Remove symlinks (restore ~/.claude/ to empty)
+#   ./install.sh --unlink  Remove symlinks
 
 set -e
 
 SKONG_DIR="$(cd "$(dirname "$0")" && pwd)"
 CLAUDE_DIR="$HOME/.claude"
-FOLDERS=(skills commands)
+ITEMS=(skills commands)
 
 # --- Status ---
 if [ "$1" = "--status" ]; then
   echo "=== Skong Link Status ==="
-  for folder in "${FOLDERS[@]}"; do
-    dest="$CLAUDE_DIR/$folder"
+  for item in "${ITEMS[@]}"; do
+    dest="$CLAUDE_DIR/$item"
     if [ -L "$dest" ]; then
-      target=$(readlink "$dest")
-      echo "✓ $folder → $target"
+      echo "✓ $item → $(readlink "$dest")"
     elif [ -d "$dest" ]; then
-      echo "✗ $folder (real directory, not linked)"
+      echo "✗ $item (real directory, not linked)"
     else
-      echo "- $folder (not found)"
+      echo "- $item (not found)"
     fi
   done
   dest="$CLAUDE_DIR/settings.json"
@@ -37,11 +36,11 @@ fi
 # --- Unlink ---
 if [ "$1" = "--unlink" ]; then
   echo "=== Removing Skong Symlinks ==="
-  for folder in "${FOLDERS[@]}"; do
-    dest="$CLAUDE_DIR/$folder"
+  for item in "${ITEMS[@]}"; do
+    dest="$CLAUDE_DIR/$item"
     if [ -L "$dest" ]; then
       rm "$dest"
-      echo "✓ Removed $folder"
+      echo "✓ Removed $item"
     fi
   done
   dest="$CLAUDE_DIR/settings.json"
@@ -50,22 +49,22 @@ if [ "$1" = "--unlink" ]; then
     echo '{}' > "$CLAUDE_DIR/settings.json"
     echo "✓ Removed settings.json symlink, created empty settings.json"
   fi
-  echo "Done. ~/.claude/ is clean."
+  echo "Done."
   exit 0
 fi
 
 # --- Install ---
 echo "=== Skong Skills Installer ==="
-echo "Source: $SKONG_DIR/.claude"
+echo "Source: $SKONG_DIR"
 echo "Target: $CLAUDE_DIR"
 echo ""
 
-for folder in "${FOLDERS[@]}"; do
-  src="$SKONG_DIR/.claude/$folder"
-  dest="$CLAUDE_DIR/$folder"
+for item in "${ITEMS[@]}"; do
+  src="$SKONG_DIR/$item"
+  dest="$CLAUDE_DIR/$item"
 
   if [ ! -d "$src" ]; then
-    echo "⏭ Skip $folder (not found in source)"
+    echo "⏭ Skip $item (not found)"
     continue
   fi
 
@@ -77,40 +76,39 @@ for folder in "${FOLDERS[@]}"; do
   fi
 
   ln -sf "$src" "$dest"
-  echo "✓ $folder → $src"
+  echo "✓ $item → $src"
 done
 
-# Symlink settings.json
-SETTINGS_SRC="$SKONG_DIR/.claude/settings.json"
-SETTINGS_DEST="$CLAUDE_DIR/settings.json"
+# Settings: symlink if exists, otherwise copy example
+src="$SKONG_DIR/settings.json"
+example="$SKONG_DIR/settings.example.json"
+dest="$CLAUDE_DIR/settings.json"
 
-if [ -f "$SETTINGS_SRC" ]; then
-  if [ -L "$SETTINGS_DEST" ]; then
-    rm "$SETTINGS_DEST"
-  elif [ -f "$SETTINGS_DEST" ]; then
-    echo "⚠ Backing up existing settings.json to settings.json.bak"
-    mv "$SETTINGS_DEST" "${SETTINGS_DEST}.bak"
+if [ -f "$src" ]; then
+  # User has their own settings.json — symlink it
+  if [ -L "$dest" ]; then
+    rm "$dest"
+  elif [ -f "$dest" ]; then
+    echo "⚠ Backing up settings.json to settings.json.bak"
+    mv "$dest" "${dest}.bak"
   fi
-  ln -sf "$SETTINGS_SRC" "$SETTINGS_DEST"
-  echo "✓ settings.json → $SETTINGS_SRC"
+  ln -sf "$src" "$dest"
+  echo "✓ settings.json → $src"
+elif [ -f "$example" ] && [ ! -f "$dest" ]; then
+  # No personal settings — copy example as starting point
+  cp "$example" "$dest"
+  echo "✓ settings.json copied from settings.example.json (edit to customize)"
+else
+  echo "⏭ settings.json already exists, skipping"
 fi
 
 echo ""
 echo "=== Installed ==="
 echo ""
-
-# Show status
-$0 --status
-
+"$SKONG_DIR/install.sh" --status
 echo ""
-echo "Commands available in all repos:"
-echo "  /setup            — set up skills for a repo"
-echo "  /pr 123           — full auto PR flow"
-echo "  /pr 123 review    — review a PR"
-echo "  /pr 123 fix       — fix review comments"
-echo "  /git clean        — clean branches"
-echo "  /git release      — create release"
-echo "  /auto             — full dev workflow"
-echo "  /learn            — reflect and improve skills"
+echo "Or install via Claude plugin:"
+echo "  /plugin marketplace add hongarc/skong"
+echo "  /plugin install skong@hongarc-skong"
 echo ""
-echo "Edit skills: $SKONG_DIR/.claude/skills/"
+echo "Edit skills: $SKONG_DIR/skills/"

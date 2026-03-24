@@ -1,4 +1,5 @@
 trainerize-migration-tool
+settings.json
 .env
 .env.*
 !.env.example

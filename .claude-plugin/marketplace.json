@@ -1,0 +1,31 @@
+{
+  "name": "skong",
+  "owner": {
+    "name": "hongarc",
+    "email": "hongtu@everfit.io"
+  },
+  "metadata": {
+    "description": "Portable Claude Code skills toolkit for dev workflows",
+    "version": "1.0.0"
+  },
+  "plugins": [
+    {
+      "name": "skong",
+      "description": "Full dev toolkit: auto workflows, PR ops, git ops, proposals, implementation, research, deploy, handover, skill-writer",
+      "source": "./",
+      "strict": false,
+      "skills": [
+        "./skills/auto",
+        "./skills/pr",
+        "./skills/git",
+        "./skills/proposal",
+        "./skills/implement",
+        "./skills/research",
+        "./skills/deploy",
+        "./skills/handover",
+        "./skills/setup",
+        "./skills/skill-writer"
+      ]
+    }
+  ]
+}
