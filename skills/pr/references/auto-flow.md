@@ -22,6 +22,11 @@ Read all changed files (full file) + siblings + imports + project CLAUDE.md.
 Apply checklist from `review-rules.md`.
 Group: **Must fix** / **Should fix** / **Clarification** / **Ask user**
 
+### Environment Variable Check
+Scan diff for new env vars (see `env-comment.md`). If found:
+- Add **Environment Variables** section to PR body with Required/Optional table
+- Secrets → always Required even with defaults
+
 ## 3. Fix
 
 For each must-fix and should-fix:

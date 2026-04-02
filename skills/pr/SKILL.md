@@ -60,6 +60,15 @@ See `references/fix-flow.md` — fix existing review comments:
 Fetch comments → Read files → Fix → Commit → Push → Reply → Resolve
 ```
 
+## Test Evidence
+
+After running tests for a PR, save HTML results locally using Catppuccin Frappé theme.
+See `references/test-evidence.md` for template, palette, and `save-test-html.sh` usage.
+
+- Name: `test-results-UP-<ticket>.html`
+- **Never commit** — local only, user captures screenshots
+- Regenerate after any test changes
+
 ## Decision Rules
 
 | Situation | Action |
