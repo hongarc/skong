@@ -23,7 +23,9 @@ version: 1.0.0
 ### Step 1: Plan
 - Break into small, testable steps
 - Identify dependencies between steps
-- Create branch: `git checkout -b feat/short-description` or `fix/short-description`
+- **Before branching:** `git fetch origin <base>` and branch off `origin/<base>` — NEVER off stale local. If the user names a base branch, assume local is stale.
+- Create branch: `git checkout -b feat/short-description origin/<base>` (or `fix/...`)
+- **Sanity check:** if user mentions existing code ("X is already there" or gives a GitHub URL), grep the freshly-fetched base for X before writing anything — don't re-add what already exists.
 
 ### Step 2: Implement
 - Follow existing codebase patterns — don't invent new ones
