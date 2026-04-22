@@ -71,6 +71,8 @@ version: 1.1.0
 - Include a clear recommendation with reasoning
 
 ## Key Principles
+- **Consistency first** — when changing a number, text, or term in one place, grep the entire document for all other occurrences and update them too. Never leave conflicting values (e.g., "80 GB" in one table and "120 GB" in another).
+- **If not clear, ask** — don't guess or auto-fill. If the user gives incomplete info, ask before writing. Wrong assumptions waste more time than a question.
 - Lead needs to make a decision — give them enough info, not too much
 - Always include alternatives considered
 - Be honest about trade-offs and risks
