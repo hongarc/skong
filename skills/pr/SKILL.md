@@ -69,6 +69,12 @@ See `references/test-evidence.md` for template, palette, and `save-test-html.sh`
 - **Never commit** — local only, user captures screenshots
 - Regenerate after any test changes
 
+## PR Body / Comment Formatting
+
+When writing PR bodies, review replies, or any `gh` command that takes a markdown `--body`, see `references/pr-body.md`.
+
+**TL;DR:** prefer `--body-file <path>` over inline heredocs, and **never** escape backticks inside a single-quoted heredoc (`<<'EOF'`) — the shell already leaves them alone, so `\`` renders as a literal backslash-backtick in the published PR. After creating/editing, verify with `gh pr view <number> --json body -q '.body' | head`.
+
 ## Decision Rules
 
 | Situation | Action |
