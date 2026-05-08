@@ -5,26 +5,54 @@
     "email": "hongtu@everfit.io"
   },
   "metadata": {
-    "description": "Portable Claude Code skills toolkit for dev workflows",
-    "version": "1.0.0"
+    "description": "Portable Claude Code skills + 53 quantum agents + workflow commands",
+    "version": "1.2.0"
   },
   "plugins": [
     {
       "name": "skong",
-      "description": "Full dev toolkit: auto workflows, PR ops, git ops, proposals, implementation, research, deploy, handover, skill-writer",
+      "description": "Full dev toolkit: 53 quantum agents (auto-routed via Task tool), 22 skills, workflow commands (/q chains), and hooks for usage tracking.",
       "source": "./",
       "strict": false,
+      "agents": [
+        "./agents"
+      ],
       "skills": [
         "./skills/auto",
-        "./skills/pr",
-        "./skills/git",
-        "./skills/proposal",
-        "./skills/implement",
-        "./skills/research",
+        "./skills/aws",
+        "./skills/client-report",
+        "./skills/debug",
         "./skills/deploy",
+        "./skills/gh-pages-publish",
+        "./skills/git",
         "./skills/handover",
+        "./skills/implement",
+        "./skills/learn",
+        "./skills/pr",
+        "./skills/proposal",
+        "./skills/release",
+        "./skills/release-everfit",
+        "./skills/research",
+        "./skills/review",
+        "./skills/review-inbox",
+        "./skills/security-review",
         "./skills/setup",
-        "./skills/skill-writer"
+        "./skills/skill-writer",
+        "./skills/test",
+        "./skills/usage"
+      ],
+      "commands": [
+        "./commands/daily-pr-review.md",
+        "./commands/demo.md",
+        "./commands/git.md",
+        "./commands/pr.md",
+        "./commands/q.md",
+        "./commands/release-everfit.md",
+        "./commands/release.md",
+        "./commands/usage.md"
+      ],
+      "hooks": [
+        "./hooks"
       ]
     }
   ]

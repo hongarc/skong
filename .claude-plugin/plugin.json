@@ -1,0 +1,11 @@
+{
+  "name": "skong",
+  "version": "1.1.0",
+  "description": "Portable Claude Code skills + 53 quantum-named agents + workflow commands",
+  "author": {
+    "name": "hongarc",
+    "email": "hongtu@everfit.io"
+  },
+  "homepage": "https://github.com/hongarc/skong",
+  "license": "MIT"
+}
