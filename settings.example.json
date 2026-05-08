@@ -30,5 +30,39 @@
       "Read(/**/.env)",
       "Read(/**/.env.*)"
     ]
+  },
+  "hooks": {
+    "UserPromptSubmit": [
+      {
+        "matcher": "*",
+        "hooks": [
+          { "type": "command", "command": "~/.claude/skills/usage/scripts/log-hook.sh prompt" }
+        ]
+      }
+    ],
+    "PreToolUse": [
+      {
+        "matcher": "*",
+        "hooks": [
+          { "type": "command", "command": "~/.claude/skills/usage/scripts/log-hook.sh tool_pre" }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "*",
+        "hooks": [
+          { "type": "command", "command": "~/.claude/skills/usage/scripts/log-hook.sh tool_post" }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "matcher": "*",
+        "hooks": [
+          { "type": "command", "command": "~/.claude/skills/usage/scripts/log-hook.sh stop" }
+        ]
+      }
+    ]
   }
 }
