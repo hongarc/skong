@@ -42,7 +42,13 @@ Defaults (everfit-api):
      - **CLEAN** → open PR `master → <target>` directly
      - **CONFLICT** → create branch `merge_master_to_<short>` off `origin/<target>`, merge `origin/master`, auto-resolve per `references/conflict-resolution.md`, push, open PR
 
-6. **Summary** — print: tag URL, release URL, 3 PR URLs, per-target conflict report (clean / auto-resolved files / manual files).
+6. **Summary** — print tag URL, release URL, then PR URLs in **copy-friendly format** (one per line, no markdown bullets):
+   ```
+   master -> dev: <pr-url>
+   master -> staging: <pr-url>
+   master -> debug: <pr-url>
+   ```
+   Followed by the per-target conflict report (clean / auto-resolved / manual). See `references/merge-targets.md` §Summary for skipped/blocked variants.
 
 ## Hard Safety Rules
 

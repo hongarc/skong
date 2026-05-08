@@ -92,11 +92,24 @@ short_name() {
 }
 ```
 
-## Summary table to print at end
+## Summary to print at end
+
+Print each PR on its own line in **copy-friendly format** so the user can paste into Slack / Jira / etc. without editing:
 
 ```
-Target                  Result        PR
-develop                 clean         #16700
-releasing_staging       merged-auto   #16701  (3 files auto-resolved)
-master-debugging        merged-manual #16702  (1 file needed manual review — fixed)
+master -> dev: https://github.com/Everfit-io/everfit-api/pull/<num>
+master -> staging: https://github.com/Everfit-io/everfit-api/pull/<num>
+master -> debug: https://github.com/Everfit-io/everfit-api/pull/<num>
+```
+
+Use the short-name mapping above (develop→dev, releasing_staging→staging, master-debugging→debug). One target per line, no leading bullets, no markdown — just `master -> <short>: <url>`.
+
+If a target was skipped (e.g. master had no new commits over it), print:
+```
+master -> <short>: SKIPPED (no new commits)
+```
+
+If a target needed manual conflict resolution and is awaiting user, print:
+```
+master -> <short>: BLOCKED (manual conflict in <file>)
 ```
