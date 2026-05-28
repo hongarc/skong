@@ -1,0 +1,175 @@
+{
+  "includeCoAuthoredBy": false,
+  "permissions": {
+    "allow": [
+      "Bash(gh *)",
+      "Bash(git status *)",
+      "Bash(git diff *)",
+      "Bash(git log *)",
+      "Bash(git branch *)",
+      "Bash(git remote *)",
+      "Bash(git show *)",
+      "Bash(git blame *)",
+      "Bash(git fetch *)",
+      "Bash(git pull *)",
+      "Bash(git stash *)",
+      "Bash(git checkout *)",
+      "Bash(git switch *)",
+      "Bash(git worktree *)",
+      "Bash(git rev-parse *)",
+      "Bash(git ls-remote *)",
+      "Bash(git merge *)",
+      "Bash(git rebase *)",
+      "Bash(git tag *)",
+      "Bash(git gc *)",
+      "Bash(git repack *)",
+      "Bash(git reflog *)",
+      "Bash(git count-objects *)",
+      "Bash(git describe *)",
+      "Bash(jq *)",
+      "Bash(grep *)",
+      "Bash(rg *)",
+      "Bash(tr *)",
+      "Bash(tee *)",
+      "Bash(ls *)",
+      "Bash(eza *)",
+      "Bash(tree *)",
+      "Bash(fd *)",
+      "Bash(pwd)",
+      "Bash(which *)",
+      "Bash(wc *)",
+      "Bash(mkdir *)",
+      "Bash(touch *)",
+      "Bash(find *)",
+      "Bash(sort *)",
+      "Bash(head *)",
+      "Bash(tail *)",
+      "Bash(diff *)",
+      "Bash(basename *)",
+      "Bash(dirname *)",
+      "Bash(realpath *)",
+      "Bash(stat *)",
+      "Bash(file *)",
+      "Bash(date *)",
+      "Bash(du *)",
+      "Bash(cat *)",
+      "Bash(bat *)",
+      "Bash(ls ~/.claude/*)",
+      "Read(~/.claude/**)",
+      "Glob(~/.claude/**)",
+      "Read(/tmp/**)",
+      "Write(/tmp/**)",
+      "Edit(/tmp/**)",
+      "Bash(python3 /tmp/*)",
+      "Bash(python /tmp/*)",
+      "Bash(bash /tmp/*)",
+      "Bash(sh /tmp/*)",
+      "Bash(node /tmp/*)"
+    ],
+    "deny": [
+      "Bash(cat *.env*)",
+      "Bash(cat */.env*)",
+      "Bash(bat *.env*)",
+      "Bash(bat */.env*)",
+      "Bash(head *.env*)",
+      "Bash(head */.env*)",
+      "Bash(tail *.env*)",
+      "Bash(tail */.env*)",
+      "Bash(env *)",
+      "Bash(printenv *)",
+      "Bash(echo $*)",
+      "Read(/**/.env)",
+      "Read(/**/.env.*)",
+      "Read(/**/.env.local)"
+    ]
+  },
+  "hooks": {
+    "UserPromptSubmit": [
+      {
+        "matcher": "*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "~/.claude/hooks/usage-log.sh prompt"
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "matcher": "*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "[ -w /dev/tty ] && printf '\\033]2;💤 claude: waiting for input\\033\\\\' > /dev/tty 2>/dev/null; true"
+          },
+          {
+            "type": "command",
+            "command": "~/.claude/hooks/usage-log.sh stop"
+          }
+        ]
+      }
+    ],
+    "Notification": [
+      {
+        "matcher": "*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "[ -w /dev/tty ] && printf '\\033]2;⚠️  claude: needs confirmation\\033\\\\' > /dev/tty 2>/dev/null; true"
+          }
+        ]
+      }
+    ],
+    "PreToolUse": [
+      {
+        "matcher": "*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "[ -w /dev/tty ] && printf '\\033]2;⚙️  claude: running...\\033\\\\' > /dev/tty 2>/dev/null; true"
+          },
+          {
+            "type": "command",
+            "command": "~/.claude/hooks/usage-log.sh tool_pre"
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "~/.claude/hooks/usage-log.sh tool_post"
+          }
+        ]
+      }
+    ]
+  },
+  "enabledPlugins": {
+    "skong@skong": true,
+    "rust-analyzer-lsp@claude-plugins-official": true,
+    "clangd-lsp@claude-plugins-official": true,
+    "lua-lsp@claude-plugins-official": true,
+    "gopls-lsp@claude-plugins-official": true
+  },
+  "extraKnownMarketplaces": {
+    "skong": {
+      "source": {
+        "source": "github",
+        "repo": "hongarc/skong"
+      }
+    },
+    "everfit-claude-code": {
+      "source": {
+        "source": "github",
+        "repo": "Everfit-io/awesome-claude-code"
+      }
+    }
+  },
+  "effortLevel": "high",
+  "skipDangerousModePermissionPrompt": true,
+  "agentPushNotifEnabled": true
+}
