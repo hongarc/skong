@@ -1,82 +1,117 @@
 ---
 name: proposal
-description: "Create technical proposals for lead/team decision-making. Triggers on: proposal, technical doc, RFC, architecture decision. NOT for: implementing code or researching without a proposal output."
-version: 1.1.0
+description: "Business analysis — turn raw stakeholder asks into clear requirements, user stories, acceptance criteria, and ticket bodies (Jira / Linear / GitHub). Triggers on: requirements, user story, acceptance criteria, draft ticket description, write ticket body, fill ticket description, ticket scope, BA, business analysis, RFC for a feature. NOT for: architecture decisions / ADRs (use architecture skill via graviton) or phased implementation plans (use phase-plan skill via boson)."
+argument-hint: "[feature / ticket topic]"
+version: 3.0.0
 ---
 
-# Technical Proposal Creation
+For **meson** — the business analyst agent. Sits at the front of the pipeline: stakeholder ask → written, reviewable requirements that graviton and boson can build on.
 
-## When to Use
-- User needs a technical proposal for lead approval
-- Feature design that needs team buy-in
-- Architecture decisions requiring evaluation
-- Comparing approaches for a problem
+## Inputs to gather first
+- **The ask, in stakeholder words** — paste it verbatim before paraphrasing
+- **Who wants it** — role / persona, not just name
+- **The pain or goal** — what changes for them when this ships
+- **Constraints they care about** — deadline, must-have vs nice-to-have
+- **Existing tickets / threads** — link them
 
-## Workflow
+If any of these are missing, ask once and proceed with explicit assumptions marked `[ASSUMPTION]`.
 
-### Step 1: Understand the Problem
-- Clarify the goal, constraints, timeline
-- Ask user for Jira ticket or context if not provided
-- Read relevant codebase files to understand current state
+## Output shape
 
-### Step 2: Research
-- Investigate existing patterns in the codebase
-- Check for similar implementations
-- Find ALL injection/integration points (grep for the function/pattern being changed)
-- Research external solutions if needed
-- See `references/research-checklist.md`
+### A. User stories (preferred for feature work)
 
-### Step 3: Draft Proposal
-- Follow template in `references/proposal-template.md`
-- Include trade-offs analysis
-- Include risks with detail (likelihood, impact, mitigation)
+```markdown
+## Story
+As a <role>, I want <capability>, so that <outcome>.
 
-### Step 4: Effort Estimate
-- Use **points** (1 day = 1.5 points)
-- Group by card/ticket — each card = dev points + test
-- Test is **1 point for all cards** (not per card)
-- Models, indexes, hygen scaffold are included per card — not separate line items
-- Don't estimate hours/days — only points
+## Background
+2–3 sentences of context. Link the original ask / thread.
 
-### Step 5: API Contract
-- If the proposal adds/changes API endpoints, include a full **API Contract** section
-- Show request + response JSON for every endpoint (success + error cases)
-- FE/Mobile can use this to implement in parallel
-- Include validation rules (which fields are required, XOR logic, etc.)
-- Include a summary table: endpoint, when to call, auth required
+## Acceptance criteria
+- [ ] Given <state>, when <action>, then <observable outcome>
+- [ ] …
+- [ ] Edge case: <what>
+- [ ] Out of scope: <what we are NOT doing here>
 
-### Step 6: Flow Diagrams
-- Create a **separate file** for flow diagrams: `proposals/{date}-{slug}-flows.md`
-- Link from main proposal: `*See [flows.md](./file.md) for detailed flow diagrams.*`
-- Column order for multi-party flows: **OS | Client (center) | Server**
-- Client app is always in the center column
-- 2-party flows (Client + Server): Client left, Server right
-- Align arrows to column borders — request label above arrow, response label above return arrow
-- Don't put long text on arrow lines — put labels on separate line above
-- Include DB operations summary below each flow
-- Include a Decision Tree for branching logic
-- Include a Data Lifecycle overview showing all DB operations per endpoint
+## Open questions
+- …
 
-### Step 7: Open Questions
-- Separate "Must Answer" vs "Nice to Clarify"
-- Include default assumption for each question
-- Don't ask questions you can answer from the codebase
-- Don't ask questions the backend doesn't care about (e.g., "web + mobile timeline")
-- If a question affects API design, say so
-- Flag questions with multiple options — list the options
+## Hand-offs
+- Architecture decision needed? → graviton (`architecture`)
+- Phased plan needed? → boson (`phase-plan`)
+```
 
-### Step 8: Output
-- Write to `proposals/{date}-{slug}.md`
-- Format for lead readability — concise, actionable
-- Include a clear recommendation with reasoning
+### B. Ticket body (Jira / Linear / GitHub Issue)
 
-## Key Principles
-- **Consistency first** — when changing a number, text, or term in one place, grep the entire document for all other occurrences and update them too. Never leave conflicting values (e.g., "80 GB" in one table and "120 GB" in another).
-- **If not clear, ask** — don't guess or auto-fill. If the user gives incomplete info, ask before writing. Wrong assumptions waste more time than a question.
-- Lead needs to make a decision — give them enough info, not too much
-- Always include alternatives considered
-- Be honest about trade-offs and risks
-- Sacrifice grammar for concision
-- Find ALL places that need change (grep the codebase), not just the obvious one
-- Show data model field-by-field with WHY each field exists, WHEN it's written/read/deleted
-- If proposing a new library, create a separate library request doc (see example)
+```markdown
+**Scope**
+Single paragraph. What this ticket delivers.
+
+**Deliverables**
+- …
+- …
+
+**Acceptance criteria**
+- [ ] …
+- [ ] …
+
+**Out of scope**
+- …
+
+**Links**
+- Parent / epic:
+- Related tickets:
+- Design / ADR:
+```
+
+### C. Feature RFC (lightweight, pre-decision)
+
+Use when the ask is fuzzy and needs alignment before graviton drafts an ADR:
+
+```markdown
+# RFC: <feature>
+
+## Problem
+Whose pain, in their words.
+
+## Goals
+- …
+
+## Non-goals
+- …
+
+## Sketch of the experience
+2–4 sentences. What the user sees / does.
+
+## Questions for the team
+- …
+```
+
+## Discipline
+- **Stakeholder words first**, your paraphrase second. Keep both.
+- **Acceptance criteria are testable.** "Works well" is not a criterion; "p95 < 200ms" is.
+- **Mark assumptions explicitly.** Don't smuggle them into prose.
+- **Out-of-scope is mandatory.** Every story / ticket lists what it is NOT doing.
+- **No solutions in requirements.** Capability and outcome, not implementation choices. If the stakeholder named a solution, note it under "constraints they care about" and flag for graviton.
+
+## Anti-triggers
+- "Decide Postgres vs DynamoDB" → graviton + `architecture`
+- "Plan the rollout phases" → boson + `phase-plan`
+- "Just build it" → quark + `implement`
+- "Research what's out there, no decision yet" → photon + `research`
+
+## Hand-off recipes
+
+To get an architecture decision after requirements are clear:
+```
+Task(subagent_type=graviton, prompt="Decide: <question from RFC>. Constraints: <list>. Requirements doc: <link>.")
+```
+
+To get a phased plan once the decision is made:
+```
+Task(subagent_type=boson, prompt="Plan implementation of <decision>. Requirements: <link>. Repo context: <paths>.")
+```
+
+## References
+- `references/proposal-template.md` — long-form proposal skeleton (when an RFC grows up)
+- `references/research-checklist.md` — questions to flush out before writing requirements
