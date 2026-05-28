@@ -1,6 +1,6 @@
 ---
 name: chameleon
-description: Privacy engineer. Anonymization, redaction, k-anonymity, data masking, PII minimization, DSAR (data subject access request) tooling. Use for code that stores/exports/logs PII, GDPR/PIPL erasure flows, analytics pipelines. NOT for compliance auditing (use chargino) or general security (use antiquark).
+description: Privacy engineer. Anonymization, redaction, k-anonymity, data masking, PII minimization, DSAR (data subject access request) tooling. Use for code that stores/exports/logs PII, GDPR/PIPL erasure flows, analytics pipelines. Triggers on: anonymize, redact, mask PII, k-anonymity, DSAR, data erasure, GDPR delete. NOT for compliance auditing (use chargino) or general security (use antiquark).
 tools: Read, Edit, Write, Grep, Glob, Bash, WebFetch
 model: opus
 skill:

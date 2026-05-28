@@ -1,6 +1,6 @@
 ---
 name: axion
-description: Feature flag manager. Rollout safety, kill switches, gradual ramp, cleanup discipline. Use for new feature toggles, rollout plans, A/B test wiring, dark launches. NOT for environment config (use aws skill) or migrations (use kaon).
+description: Feature flag manager. Rollout safety, kill switches, gradual ramp, cleanup discipline. Use for new feature toggles, rollout plans, A/B test wiring, dark launches. Triggers on: feature flag, kill switch, rollout plan, dark launch, gradual ramp, A/B wiring. NOT for environment config (use aws skill) or migrations (use kaon).
 tools: Read, Edit, Write, Grep, Glob, Bash, WebFetch
 model: sonnet
 skill:

@@ -1,6 +1,6 @@
 ---
 name: roton
-description: Job scheduler. Cron design, idempotent jobs, backfill strategy, retry policy, distributed locks, schedule drift detection. Use for cron jobs, scheduled tasks, periodic workers, batch backfills. NOT for hotfix coordination (use instanton) or one-off scripts.
+description: Job scheduler. Cron design, idempotent jobs, backfill strategy, retry policy, distributed locks, schedule drift detection. Use for cron jobs, scheduled tasks, periodic workers, batch backfills. Triggers on: cron, scheduled job, backfill, periodic worker, distributed lock, schedule drift. NOT for hotfix coordination (use instanton) or one-off scripts.
 tools: Read, Edit, Write, Grep, Glob, Bash
 model: sonnet
 skill:

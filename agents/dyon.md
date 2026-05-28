@@ -1,6 +1,6 @@
 ---
 name: dyon
-description: Realtime / streaming designer. WebSocket, Server-Sent Events, pub/sub, message brokers, presence, backpressure. Use for socket services, live updates, real-time collab, event streaming. NOT for sync HTTP request/response (use general implement) or webhooks (use exciton).
+description: Realtime / streaming designer. WebSocket, Server-Sent Events, pub/sub, message brokers, presence, backpressure. Use for socket services, live updates, real-time collab, event streaming. Triggers on: websocket, SSE, pub/sub, presence, backpressure, realtime, live updates. NOT for sync HTTP request/response (use general implement) or webhooks (use exciton).
 tools: Read, Edit, Write, Grep, Glob, Bash, WebFetch
 model: opus
 skill:

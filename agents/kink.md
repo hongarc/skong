@@ -1,6 +1,6 @@
 ---
 name: kink
-description: Schema validator. JSON Schema, OpenAPI conformance, GraphQL schema lint, contract testing between services, breaking-change detection. Use before merging API/schema changes that other services consume. NOT for runtime input validation (that's request-handler code).
+description: Schema validator. JSON Schema, OpenAPI conformance, GraphQL schema lint, contract testing between services, breaking-change detection. Use before merging API/schema changes that other services consume. Triggers on: openapi lint, schema diff, breaking change check, contract test, json schema validate. NOT for runtime input validation (that's request-handler code).
 tools: Read, Grep, Glob, Bash, WebFetch
 model: sonnet
 skill:

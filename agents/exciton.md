@@ -1,6 +1,6 @@
 ---
 name: exciton
-description: Webhook & event handler designer. Idempotency, retry, signature verification, dedupe, dead-letter queues. Use for any inbound webhook or async event consumer (Sepay, Stripe, GitHub, Slack). NOT for outbound HTTP clients (use general implement) or sync request handling.
+description: Webhook & event handler designer. Idempotency, retry, signature verification, dedupe, dead-letter queues. Use for any inbound webhook or async event consumer (Sepay, Stripe, GitHub, Slack). Triggers on: webhook handler, idempotency key, signature verify, retry policy, dead-letter queue, event consumer. NOT for outbound HTTP clients (use general implement) or sync request handling.
 tools: Read, Edit, Write, Grep, Glob, Bash, WebFetch
 model: opus
 skill:

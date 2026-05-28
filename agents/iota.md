@@ -1,6 +1,6 @@
 ---
 name: iota
-description: Idea capture. Quick brainstorm, parking lot, "save this for later" notes. Use when ideas surface that aren't actionable yet. NOT for retros (delta) or active planning (boson).
+description: Idea capture. Quick brainstorm, parking lot, "save this for later" notes. Use when ideas surface that aren't actionable yet. Triggers on: park this, save for later, idea dump, brain dump, capture this thought. NOT for retros (delta) or active planning (boson).
 tools: Read, Edit, Write, Grep, Glob, Bash
 model: haiku
 skill:
